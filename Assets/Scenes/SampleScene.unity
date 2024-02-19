@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 165596931}
   - component: {fileID: 165596930}
   - component: {fileID: 165596933}
+  - component: {fileID: 165596934}
   m_Layer: 6
   m_Name: Obstacle
   m_TagString: Obstacle
@@ -243,7 +244,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 165596929}
-  m_BodyType: 2
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -255,7 +256,20 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
+--- !u!114 &165596934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165596929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cee441268badbc4f99758af88c0ff6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerable: 1
 --- !u!1 &357578934
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,7 +773,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1173496757}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -864,3 +878,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tokensNum: 0
   moveSpeed: 15
+  CouldMove: 1
