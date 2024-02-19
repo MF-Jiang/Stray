@@ -8,7 +8,12 @@ public class Player : MonoBehaviour
     private Camera mainCamera;
     private Vector2 targetPosition;
 
+    public float tokensNum = 0;
+
     public float moveSpeed = 5f;
+
+
+    public bool CouldMove = true;
 
     // Start is called before the first frame update
     void Start()
@@ -21,11 +26,19 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && CouldMove)
         {
             MoveToClickedPosition();
         }
-        rb.MovePosition(Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime));
+        if (CouldMove)
+        {
+            rb.MovePosition(Vector2.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime));
+        }
+        else
+        {
+            targetPosition = transform.position;
+        }
+        
     }
 
     void MoveToClickedPosition()
