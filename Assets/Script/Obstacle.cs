@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    // 动作数组内涵 9,20,12,15
+    // 动作数组内涵 9,20,12,15  (JUMP)
     public int[] ActionIndex = new int[] { 9, 20, 12, 15 };
 
     public GameObject Characters;
+    public GameObject Blocks;
 
     public bool triggerable = true;
 
@@ -33,7 +34,7 @@ public class Obstacle : MonoBehaviour
             collision.gameObject.GetComponent<Player>().CouldMove = false;
 
             Characters.GetComponent<Characters>().setCharacterSprite(ActionIndex);
-
+            Blocks.GetComponent<Blocks>().setBlockSprite(ActionIndex);
 
         }
     }

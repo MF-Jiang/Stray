@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     private Camera mainCamera;
     private Vector2 targetPosition;
 
-    public float tokensNum = 0;
+    public float tokensNum = 99999;
 
     public float moveSpeed = 5f;
 

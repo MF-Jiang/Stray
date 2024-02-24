@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
@@ -9,19 +10,22 @@ public class Character : MonoBehaviour
 
     public int CharacterIndex;
 
-    private SpriteRenderer sr;
+    //private SpriteRenderer sr;
+    private Image img;
 
     // Start is called before the first frame update
     void Start()
     {
-        sr = GetComponent<SpriteRenderer>();
+        //sr = GetComponent<SpriteRenderer>();
+        img = GetComponent<Image>();
     }
 
     // Update is called once per frame
     void Update()
     {
        //Ω±Õº∆¨ªª≥…µ⁄CharacterIndex’≈Õº∆¨
-        sr.sprite = CharacterSprites[CharacterIndex];
+        //sr.sprite = CharacterSprites[CharacterIndex];
+        img.sprite = CharacterSprites[CharacterIndex];
     }
 
     public void SetCharacterIndex(int index)
