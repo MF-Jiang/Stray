@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
+    // 动作数组内涵 9,20,12,15
+    public int[] ActionIndex = new int[] { 9, 20, 12, 15 };
+
+    public GameObject Characters;
+
     public bool triggerable = true;
 
     private Rigidbody2D rb;
@@ -26,6 +31,10 @@ public class Obstacle : MonoBehaviour
         {
             //Debug.Log("HERE");
             collision.gameObject.GetComponent<Player>().CouldMove = false;
+
+            Characters.GetComponent<Characters>().setCharacterSprite(ActionIndex);
+
+
         }
     }
 }

@@ -15,7 +15,6 @@ public class Character : MonoBehaviour
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-        CharacterIndex = 0;
     }
 
     // Update is called once per frame
@@ -23,5 +22,10 @@ public class Character : MonoBehaviour
     {
        //Ω±Õº∆¨ªª≥…µ⁄CharacterIndex’≈Õº∆¨
         sr.sprite = CharacterSprites[CharacterIndex];
+    }
+
+    public void SetCharacterIndex(int index)
+    {
+        CharacterIndex = index;
     }
 }
