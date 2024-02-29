@@ -615,6 +615,7 @@ GameObject:
   - component: {fileID: 396683319}
   - component: {fileID: 396683321}
   - component: {fileID: 396683320}
+  - component: {fileID: 396683322}
   m_Layer: 5
   m_Name: Spelling
   m_TagString: Untagged
@@ -682,6 +683,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 396683318}
   m_CullTransparentMesh: 1
+--- !u!114 &396683322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396683318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cdd3ca3ee04eb54393bedae4c5e02fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Blocks: []
+  waitCharacter: {fileID: 0}
+  ArrowPrefab: {fileID: 7896914976112129640, guid: 74a8418226f8f7b48989e2cdbd1c7e96, type: 3}
+  canvas: {fileID: 1302733576}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,7 +1009,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 137}
-  m_SizeDelta: {x: 1500, y: 300}
+  m_SizeDelta: {x: 1500, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1085405336
 MonoBehaviour:
@@ -1014,7 +1031,7 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 150, y: 100}
+  m_CellSize: {x: 150, y: 150}
   m_Spacing: {x: 110, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -1033,6 +1050,7 @@ MonoBehaviour:
   WordLength: 0
   BlocksSprites: []
   Block: {fileID: 842218826464249571, guid: 828cce5ad10cde94abcfc8a31b7f9a8d, type: 3}
+  Spell: {fileID: 396683318}
 --- !u!1 &1173496757
 GameObject:
   m_ObjectHideFlags: 0

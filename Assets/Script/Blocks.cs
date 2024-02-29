@@ -7,6 +7,7 @@ public class Blocks : MonoBehaviour
     public int WordLength = 0;
     public List<GameObject> BlocksSprites;
     public GameObject Block;
+    public GameObject Spell;
 
     public void setBlockSprite(int[] blockindex)
     {
@@ -17,6 +18,10 @@ public class Blocks : MonoBehaviour
             GameObject block = Instantiate(Block, new Vector3(0, 0, 0), Quaternion.identity);
             block.transform.SetParent(this.transform);
             block.transform.localPosition = new Vector3(i * 1.5f, 0, 0);
+
+            Spell.GetComponent<SpellingManager>().Blocks.Add(block);
+
+
             BlocksSprites.Add(block);
         }
     }
