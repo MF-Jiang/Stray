@@ -67,11 +67,31 @@ public class SpellingManager : MonoSingleton<SpellingManager>
 
     public void Summon(GameObject _waitCharacter, Transform _block)
     {
-        _waitCharacter.transform.SetParent(_block);
+        
+
+        // ¸´ÖÆÒ»¸öwaitCharacter
+        GameObject Copy = Instantiate(_waitCharacter);
+        
+
+
+        Copy.transform.SetParent(_block);
+        Copy.transform.localPosition = Vector3.zero;
+        Copy.GetComponent<Character>().type = CharacterType.inBlock;
+        _block.GetComponent<Block>().hasCharacter = true;
+        _block.GetComponent<Block>().character = Copy;
+
+        /*Transform transformToReset = _block.GetComponent<Block>().character.transform;
+        transformToReset.position = Vector3.zero;
+        transformToReset.localScale = Vector3.one;*/
+
+
+        /*_waitCharacter.transform.SetParent(_block);
         _waitCharacter.transform.localPosition = Vector3.zero;
         _waitCharacter.GetComponent<Character>().type = CharacterType.inBlock;
-        _block.GetComponent<Block>().hasCharacter = true;
-        _block.GetComponent<Block>().character = _waitCharacter;
+        _block.GetComponent<Block>().hasCharacter = true;*/
+
+
+        //_block.GetComponent<Block>().character = _waitCharacter
         DestroyArrow();
 
 

@@ -12,6 +12,15 @@ public class Characters : MonoBehaviour
 
     public void setCharacterSprite(int[] charindex)
     {
+        CharacterSprites.Clear();
+        //摧毁该物体下所有子物体
+        Transform[] children = gameObject.GetComponentsInChildren<Transform>();
+        for (int i = 1; i < children.Length; i++)
+        {
+            // 摧毁子物体
+            Destroy(children[i].gameObject);
+        }
+
         WordLength = charindex.Length;
 
         // 把charindex这个数组随机打乱
