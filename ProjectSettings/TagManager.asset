@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Obstacle
   - Token
+  - landingerror
+  - Grid
   layers:
   - Default
   - TransparentFX
@@ -14,7 +16,7 @@ TagManager:
   - Water
   - UI
   - Obstacle
-  - 
+  - Grid
   - 
   - 
   - 

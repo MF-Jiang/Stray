@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class Obstacle : MonoBehaviour
 {
     // 动作数组内涵 9,20,12,15  (JUMP)
@@ -14,14 +16,19 @@ public class Obstacle : MonoBehaviour
     public GameObject Characters;
     public GameObject Blocks;
 
+    public Transform fallPoint;
+
     public bool triggerable = true;
 
-    private Rigidbody2D rb;
+    public float height = 10f;
+    public float leapingforce = 10f;
+
+    private Rigidbody2D rbO;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rbO = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -37,6 +44,7 @@ public class Obstacle : MonoBehaviour
         {
             //Debug.Log("HERE");
             collision.gameObject.GetComponent<Player>().CouldMove = false;
+            collision.gameObject.GetComponent<Player>().changeTarget(transform.position);
             SpellPanel.SetActive(true);
 
 
@@ -49,8 +57,43 @@ public class Obstacle : MonoBehaviour
         }
         // 以后触发
         if (!triggerable && collision.tag == "Player")
-        { 
-            
+        {
+            //先停止动作
+            collision.gameObject.GetComponent<Player>().CouldMove = false;
+            collision.gameObject.GetComponent<Player>().changeTarget(transform.position);
+
+
+            // JUMP 检查ActionIndex中是不是9, 20, 12, 15
+            if (ActionIndex[0] == 9 && ActionIndex[1] == 20 && ActionIndex[2] == 12 && ActionIndex[3] == 15)
+            {
+                //collision.gameObject.GetComponent<Player>().changeTarget(fallPoint.position);
+                collision.gameObject.GetComponent<Player>().jumping = true;
+                Rigidbody2D rb = collision.GetComponent<Rigidbody2D>();
+
+                if(rb != null) 
+                {
+                    Debug.Log("JUMP");
+                    Vector2 direction = (fallPoint.position - collision.transform.position).normalized;
+
+                    Vector2 middlePoint = (collision.transform.position + fallPoint.position) / 2f;
+                    middlePoint += Vector2.up * height;
+
+                    Vector2 start = collision.transform.position;
+                    Vector2 end = fallPoint.position;
+                    float t = 0.5f; // 曲线中间点的参数t值
+                    Vector2 bezierPoint = Mathf.Pow(1 - t, 2) * start + 2 * (1 - t) * t * middlePoint + Mathf.Pow(t, 2) * end;
+
+                    // 计算曲线方向
+                    Vector2 curveDirection = (bezierPoint - (Vector2)collision.transform.position).normalized;
+
+                    // 添加力以使玩家沿曲线弹射到目标陷阱
+                    rb.velocity = curveDirection * leapingforce;
+
+                }
+
+
+            }
+
         }
     }
 
@@ -84,11 +127,14 @@ public class Obstacle : MonoBehaviour
                 {
                     if (answer[i] != ActionIndex[i])
                     {
+                        Debug.Log("Answer Wrong");
                         isCorrect = false;
                     }
                 }
                 if (isCorrect)
+
                 {
+                    Debug.Log("Answer Correct");
                     if(Player.GetComponent<Player>().tokensNum >= answer.Count)
                     {
                         Player.GetComponent<Player>().tokensNum = Player.GetComponent<Player>().tokensNum - answer.Count;
@@ -106,6 +152,21 @@ public class Obstacle : MonoBehaviour
                 }
             }
 
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (fallPoint != null)
+        {
+            // 绘制贝塞尔曲线
+            Gizmos.color = Color.red;
+            Vector2 start = transform.position;
+            Vector2 end = fallPoint.position;
+            Vector2 middlePoint = (start + end) / 2f;
+            middlePoint += Vector2.up * height;
+            Gizmos.DrawLine(start, middlePoint);
+            Gizmos.DrawLine(middlePoint, end);
         }
     }
 }

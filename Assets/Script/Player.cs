@@ -12,8 +12,12 @@ public class Player : MonoBehaviour
 
     public float moveSpeed = 5f;
 
+    public bool jumping = false;
 
     public bool CouldMove = true;
+
+    public LayerMask gridLayer; // 用于指定 Grid 所在的层级
+    public float raycastDistance = 10f; // 射线的长度
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +49,19 @@ public class Player : MonoBehaviour
     {
         Vector3 mousePosition = Input.mousePosition;
         mousePosition = mainCamera.ScreenToWorldPoint(mousePosition);
-        targetPosition = new Vector2(mousePosition.x, transform.position.y);
+
+        RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.down, Mathf.Infinity, gridLayer);
+
+        if (hit.collider != null)
+        {
+            // 获取碰撞到的 Grid 的位置
+            targetPosition = hit.point;
+
+            // 输出位置信息，你也可以将其用于你的逻辑
+            //Debug.Log("Grid Position: " + targetPosition);
+        }
+
+        //targetPosition = new Vector2(mousePosition.x, transform.position.y);
 
         // Face the direction of movement
         if (targetPosition.x < transform.position.x)
@@ -58,5 +74,10 @@ public class Player : MonoBehaviour
         }
 
         
+    }
+
+    public void changeTarget(Vector2 stopPosition) 
+    {
+        targetPosition = new Vector2(stopPosition.x, transform.position.y);
     }
 }

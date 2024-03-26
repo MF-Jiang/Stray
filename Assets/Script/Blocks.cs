@@ -20,6 +20,9 @@ public class Blocks : MonoBehaviour
             Destroy(children[i].gameObject);
         }
 
+        Spell.GetComponent<SpellingManager>().Blocks.Clear();
+
+
         WordLength = blockindex.Length;
 
         for (int i = 0; i < WordLength; i++)
