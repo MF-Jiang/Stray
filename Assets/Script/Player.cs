@@ -16,8 +16,12 @@ public class Player : MonoBehaviour
 
     public bool CouldMove = true;
 
+    public bool onfloor = true;
+
     public LayerMask gridLayer; // 用于指定 Grid 所在的层级
     public float raycastDistance = 10f; // 射线的长度
+
+    RaycastHit2D hit;
 
     // Start is called before the first frame update
     void Start()
@@ -50,18 +54,28 @@ public class Player : MonoBehaviour
         Vector3 mousePosition = Input.mousePosition;
         mousePosition = mainCamera.ScreenToWorldPoint(mousePosition);
 
-        RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.down, Mathf.Infinity, gridLayer);
+        hit = Physics2D.Raycast(mousePosition, Vector2.down, Mathf.Infinity, gridLayer);
 
-        if (hit.collider != null)
+        if (onfloor == false)
         {
-            // 获取碰撞到的 Grid 的位置
-            targetPosition = hit.point;
+            if (hit.collider != null)
+            {
+                // 获取碰撞到的 Grid 的位置
+                targetPosition = hit.point;
 
-            // 输出位置信息，你也可以将其用于你的逻辑
-            //Debug.Log("Grid Position: " + targetPosition);
+                // 输出位置信息，你也可以将其用于你的逻辑
+                //Debug.Log("Grid Position: " + targetPosition);
+            }
+
+            if (targetPosition.y > transform.position.y)
+            {
+                targetPosition.y = transform.position.y;
+            }
         }
-
-        //targetPosition = new Vector2(mousePosition.x, transform.position.y);
+        else 
+        {
+            targetPosition = new Vector2(mousePosition.x, transform.position.y);
+        }
 
         // Face the direction of movement
         if (targetPosition.x < transform.position.x)
@@ -79,5 +93,51 @@ public class Player : MonoBehaviour
     public void changeTarget(Vector2 stopPosition) 
     {
         targetPosition = new Vector2(stopPosition.x, transform.position.y);
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Grid")
+        {
+            //Debug.Log("1");
+            CouldMove = true;
+            jumping = false;
+            onfloor = true;
+            rb.gravityScale = 1.0f;
+        }
+    }
+
+
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        //Debug.Log(collision.gameObject.name);
+        if (collision.gameObject.tag == "Grid")
+        {
+            //Debug.Log("2");
+            /*CouldMove = true;
+            jumping = false;*/
+            onfloor = true;
+            rb.gravityScale = 1.0f;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Grid")
+        {
+            //Debug.Log("2");
+            /*CouldMove = true;
+            jumping = false;*/
+            targetPosition.y = hit.point.y;
+            onfloor = false;
+
+            //玩家在非跳跃状态下离开地面（下落状态），适当增加重力
+            if(jumping == false)
+            {
+                rb.gravityScale = 15f;
+            }
+        }
     }
 }

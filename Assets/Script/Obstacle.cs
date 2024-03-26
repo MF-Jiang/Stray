@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 
@@ -88,6 +89,69 @@ public class Obstacle : MonoBehaviour
 
                     // 添加力以使玩家沿曲线弹射到目标陷阱
                     rb.velocity = curveDirection * leapingforce;
+
+                    // Face the direction of movement
+                    if (fallPoint.position.x < collision.transform.position.x)
+                    {
+                        collision.transform.localScale = new Vector3(-1, 1, 1); // Flip character to face left
+                    }
+                    else
+                    {
+                        collision.transform.localScale = new Vector3(1, 1, 1); // Flip character to face right
+                    }
+
+                }
+
+
+            }
+
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!triggerable && collision.tag == "Player")
+        {
+            //先停止动作
+            collision.gameObject.GetComponent<Player>().CouldMove = false;
+            collision.gameObject.GetComponent<Player>().changeTarget(transform.position);
+
+
+            // JUMP 检查ActionIndex中是不是9, 20, 12, 15
+            if (ActionIndex[0] == 9 && ActionIndex[1] == 20 && ActionIndex[2] == 12 && ActionIndex[3] == 15)
+            {
+                //collision.gameObject.GetComponent<Player>().changeTarget(fallPoint.position);
+                collision.gameObject.GetComponent<Player>().jumping = true;
+                Rigidbody2D rb = collision.GetComponent<Rigidbody2D>();
+
+                if (rb != null)
+                {
+                    Debug.Log("JUMP");
+                    Vector2 direction = (fallPoint.position - collision.transform.position).normalized;
+
+                    Vector2 middlePoint = (collision.transform.position + fallPoint.position) / 2f;
+                    middlePoint += Vector2.up * height;
+
+                    Vector2 start = collision.transform.position;
+                    Vector2 end = fallPoint.position;
+                    float t = 0.5f; // 曲线中间点的参数t值
+                    Vector2 bezierPoint = Mathf.Pow(1 - t, 2) * start + 2 * (1 - t) * t * middlePoint + Mathf.Pow(t, 2) * end;
+
+                    // 计算曲线方向
+                    Vector2 curveDirection = (bezierPoint - (Vector2)collision.transform.position).normalized;
+
+                    // 添加力以使玩家沿曲线弹射到目标陷阱
+                    rb.velocity = curveDirection * leapingforce;
+
+                    // Face the direction of movement
+                    if (fallPoint.position.x < collision.transform.position.x)
+                    {
+                        collision.transform.localScale = new Vector3(-1, 1, 1); // Flip character to face left
+                    }
+                    else
+                    {
+                        collision.transform.localScale = new Vector3(1, 1, 1); // Flip character to face right
+                    }
 
                 }
 
