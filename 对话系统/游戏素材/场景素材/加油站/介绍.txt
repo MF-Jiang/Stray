@@ -1,0 +1,29 @@
+**Cody 部分**
+
+**触发对话（点击时第一次触发的对话）**
+
+C: Thank you. Here's your share. //[+2 Token]//But I'm not in the mood for it.
+
+K: Turn your head (Why?)
+
+**发布任务**
+
+C: Because I dropped my ball on the roof of a gas station. How can I get it off?
+
+K: (Maybe I can help)/Ignore
+
+**未完成任务（委婉提醒玩家还有任务没有完成）**
+
+C: Have you got it?
+
+**完成任务 （感谢、奖励等）**
+
+C: Aha! My baseball! Thank you! That's all the snacks I have. Take it. //[+7 Token]
+
+C: Wait, brown, medium size, and so smart, you're the cat Jack was talking about!
+
+(At the sound of your master's name, you called out eagerly)
+
+C: That's right. He was here looking for you last week, but for some reason he hasn't been here lately. His car is still parked here.
+
+C: And I don't know when he'll come back again. Anyways, if I see Jack next time, I'll tell him which way you went.

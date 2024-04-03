@@ -1,0 +1,14 @@
+D: 
+Hey there, little fella. What're you doing out here among all this mess?
+
+K: 
+Meow（I’m Lost）
+
+D: 
+Poor little thing. Look how dirty you are. You must be hungry. I've got some cat food here, take it, you can't do anything without food in this place. //[Token + 6]
+
+D: 
+Good girl, there's a lot of food you can collect around here, so don't let yourself get hungry.
+
+K：
+Meow （Thank you）
